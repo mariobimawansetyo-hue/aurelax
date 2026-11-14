@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurelax Family Massage - Step into your Personal Sanctuary</title>
+  <meta name="description" content="Aurelax Family Massage - Layanan pijat keluarga profesional, higienis, dan menenangkan dengan sentuhan terapis berlisensi dan minyak aromaterapi alami.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            brand: {
+              gold: '#C5A880',
+              goldLight: '#E8D8C3',
+              goldDark: '#9F8055',
+              green: '#4EAB59',
+              greenDark: '#398444',
+              greenLight: '#DCFCE7',
+              dark: '#0C0C0E',
+              darkCard: '#141418',
+              darkSurface: '#1C1C22',
+              muted: '#9494A0',
+            }
+          },
+          boxShadow: {
+            'gold-glow': '0 0 50px -10px rgba(197, 168, 128, 0.45)',
+            'green-glow': '0 0 35px -8px rgba(78, 171, 89, 0.45)',
+            'glass-pill': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0C0C0E;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A35;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C5A880;
+    }
+
+    /* Cinematic Ambient Glow & Beam Effects inspired by the reference image */
+    .hero-cinematic-bg {
+      background: radial-gradient(circle at 75% 40%, rgba(212, 140, 65, 0.38) 0%, rgba(184, 90, 32, 0.22) 30%, rgba(12, 12, 14, 0.95) 75%),
+                  radial-gradient(circle at 25% 25%, rgba(197, 168, 128, 0.15) 0%, transparent 60%),
+                  #0C0C0E;
+    }
+
+    /* Horizontal Light Streak Glare like in the reference image */
+    .light-streak {
+      position: absolute;
+      top: 38%;
+      right: 15%;
+      width: 550px;
+      height: 90px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 230, 190, 0.85) 45%, rgba(220, 120, 40, 0.9) 65%, rgba(255, 100, 0, 0) 100%);
+      filter: blur(28px);
+      transform: rotate(-14deg);
+      pointer-events: none;
+      opacity: 0.75;
+      mix-blend-mode: screen;
+    }
+
+    /* Glass pill styles */
+    .glass-pill-nav {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .glass-card {
+      background: rgba(20, 20, 24, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-card-gold {
+      background: rgba(22, 21, 26, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(197, 168, 128, 0.3);
+    }
+
+    /* ==========================================================
+       SCROLL MOTION & SLIDE TRANSITIONS
+       Memberikan efek motion lembut pada setiap slide saat scroll ke bawah
+       ========================================================== */
+    .motion-slide {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .motion-slide.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .motion-slide-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .motion-slide-left.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .motion-slide-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .motion-slide-right.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Staggered card delays */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    /* Hero Text Fade/Slide Animation */
+    .hero-content-transition {
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .hero-content-transition.changing {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    /* Bounce scroll indicator */
+    @keyframes scrollIndicatorBounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(8px); }
+      60% { transform: translateY(4px); }
+    }
+    .animate-scroll-bounce {
+      animation: scrollIndicatorBounce 2.4s infinite;
+    }
+
+    /* Date picker indicator & appearance */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      filter: invert(0.8);
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-[#0C0C0E] text-slate-100 font-sans antialiased selection:bg-brand-gold selection:text-black relative">
+
+  <!-- ==================== FLOATING DESKTOP SLIDE INDICATOR (DOTS ON RIGHT) ==================== -->
+  <div class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-3 bg-black/40 backdrop-blur-md p-2 rounded-full border border-white/10">
+    <a href="#beranda" class="slide-dot w-2.5 h-2.5 rounded-full bg-brand-gold transition-all duration-300" title="Beranda"></a>
+    <a href="#layanan" class="slide-dot w-2.5 h-2.5 rounded-full bg-white/20 hover:bg-white/60 transition-all duration-300" title="Layanan"></a>
+    <a href="#keunggulan" class="slide-dot w-2.5 h-2.5 rounded-full bg-white/20 hover:bg-white/60 transition-all duration-300" title="Tentang"></a>
+    <a href="#booking" class="slide-dot w-2.5 h-2.5 rounded-full bg-white/20 hover:bg-white/60 transition-all duration-300" title="Reservasi"></a>
+    <a href="#ulasan" class="slide-dot w-2.5 h-2.5 rounded-full bg-white/20 hover:bg-white/60 transition-all duration-300" title="Ulasan"></a>
+    <a href="#lokasi" class="slide-dot w-2.5 h-2.5 rounded-full bg-white/20 hover:bg-white/60 transition-all duration-300" title="Lokasi"></a>
+  </div>
+
+  <!-- ==================== HEADER / FLOATING MINIMALIST NAVBAR (Matching Reference Image) ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Left: Brand Logo Mark & Name -->
+      <a href="#beranda" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#1C1C22] to-[#121216] border border-brand-gold/40 flex items-center justify-center p-1.5 shadow-lg group-hover:border-brand-gold transition duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 12C50 12 55 24 53 35C51 46 44 54 44 54C44 54 39 42 41 31C43 20 50 12 50 12Z" fill="#4EAB59"/>
+            <path d="M50 18C52 25 56 28 60 27C63 26 65 22 65 22C65 22 65 28 61 34C57 40 50 44 50 44" stroke="#4EAB59" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M36 34C36 34 26 38 23 48C20 58 26 68 36 72C36 72 32 60 36 51C40 42 46 38 46 38" fill="#4EAB59"/>
+            <path d="M64 34C64 34 74 38 77 48C80 58 74 68 64 72C64 72 68 60 64 51C60 42 54 38 54 38" fill="#4EAB59"/>
+          </svg>
+        </div>
+        <div class="hidden sm:flex flex-col">
+          <span class="font-serif text-lg font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-goldLight to-brand-gold">
+            AURELAX
+          </span>
+          <span class="text-[8px] tracking-[0.25em] font-medium text-slate-400 uppercase -mt-1">
+            Family Massage
+          </span>
+        </div>
+      </a>
+
+      <!-- Center: Floating Capsule Pills (Like 'Homw Price Store' in Reference Image) -->
+      <nav class="hidden md:flex items-center glass-pill-nav rounded-full px-2 py-1.5 shadow-glass-pill">
+        <a href="#beranda" class="px-4 py-1.5 text-xs font-semibold rounded-full bg-white/15 text-white hover:text-white transition">Beranda</a>
+        <a href="#layanan" class="px-4 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition">Layanan</a>
+        <a href="#keunggulan" class="px-4 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition">Tentang</a>
+        <a href="#ulasan" class="px-4 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition">Ulasan</a>
+        <a href="#lokasi" class="px-4 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition">Lokasi</a>
+      </nav>
+
+      <!-- Right: Action Buttons (Like 'Sign up for beta' & 'Download' in Reference Image) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Subtle Glass Button -->
+        <a href="https://wa.me/628997906767" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center px-4 py-2 rounded-full glass-pill-nav text-xs font-medium text-slate-200 hover:text-white hover:bg-white/15 transition">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5 mr-1.5 text-brand-green"></i>
+          <span>Tanya CS</span>
+        </a>
+
+        <!-- Solid Pill CTA (White/Gold Rounded Pill like 'Download') -->
+        <a href="#booking" class="inline-flex items-center px-5 py-2 sm:py-2.5 rounded-full bg-white text-[#0C0C0E] hover:bg-brand-gold hover:text-black font-bold text-xs sm:text-sm shadow-lg hover:shadow-gold-glow active:scale-95 transition-all duration-300">
+          <span>Booking Sekarang</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-full glass-pill-nav text-slate-300 hover:text-white focus:outline-none">
+          <i data-lucide="menu" id="menu-icon" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden mt-3 mx-2 rounded-3xl bg-[#141418]/95 backdrop-blur-2xl border border-white/10 p-5 space-y-3 shadow-2xl">
+      <a href="#beranda" class="block py-2 text-sm font-semibold text-brand-gold">Beranda</a>
+      <a href="#layanan" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Layanan & Tarif</a>
+      <a href="#keunggulan" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Tentang Aurelax</a>
+      <a href="#ulasan" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Ulasan Pengunjung</a>
+      <a href="#lokasi" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Lokasi & Jam Buka</a>
+      <div class="pt-2 flex flex-col gap-2">
+        <a href="#booking" class="w-full text-center py-2.5 rounded-full bg-white text-black font-bold text-xs">
+          Booking Sekarang
+        </a>
+        <a href="https://wa.me/628997906767" target="_blank" class="w-full text-center py-2 rounded-full bg-[#183920] text-brand-green border border-brand-green/30 text-xs font-semibold">
+          Chat WhatsApp CS
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== SLIDE 1: ULTRA-SIMPLE IMMERSIVE HERO SECTION (Directly matching Reference Image) ==================== -->
+  <section id="beranda" class="relative min-h-screen flex items-center justify-center overflow-hidden hero-cinematic-bg px-4 sm:px-8 lg:px-16 pt-24 pb-16">
+    
+    <!-- Light Streak / Glare behind subject (Exact style as reference image) -->
+    <div class="light-streak"></div>
+
+    <!-- Background Cinematic Ambient Glows -->
+    <div class="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-amber-600/25 via-brand-gold/15 to-transparent rounded-full blur-[110px] pointer-events-none"></div>
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-brand-green/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <!-- Background Silhouette / Spa Visual with Warm Ambient Lighting (Right Side Focus like the reference model) -->
+    <div class="absolute inset-y-0 right-0 w-full lg:w-3/5 pointer-events-none overflow-hidden opacity-35 lg:opacity-50 mix-blend-screen transition-opacity duration-700" id="hero-bg-visual">
+      <img id="hero-img-element" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&auto=format&fit=crop&q=80" alt="Aurelax Sanctuary Visual" class="w-full h-full object-cover object-center filter contrast-125 brightness-90">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0C0C0E] via-[#0C0C0E]/70 to-transparent"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col justify-between min-h-[75vh]">
+      
+      <!-- Top Spacer -->
+      <div></div>
+
+      <!-- Center Hero Content -->
+      <div class="max-w-3xl space-y-6">
+        
+        <!-- Pill Badge: [ New ] Sanctuary Pijat Keluarga -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/15 text-xs text-slate-200 shadow-sm" id="hero-badge">
+          <span class="px-2 py-0.5 rounded-full bg-white text-black font-extrabold text-[10px] tracking-wide uppercase" id="badge-highlight">New</span>
+          <span class="font-medium text-slate-300" id="badge-text">Sanctuary Pijat &amp; Refleksi Keluarga</span>
+        </div>
+
+        <!-- Striking Bold Headline: "Step into your Personal Palace" -->
+        <div id="hero-headline-container">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] max-w-2xl" id="hero-headline">
+            Step into your <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-goldLight to-brand-gold">
+              Personal Sanctuary
+            </span>
+          </h1>
+
+          <!-- Subtitle matching reference style (2-3 lines clean font) -->
+          <p class="mt-5 text-slate-300 text-sm sm:text-base lg:text-lg max-w-xl font-normal leading-relaxed" id="hero-subtitle">
+            Pengalaman relaksasi murni dengan sentuhan terapis berlisensi, minyak herbal esensial, dan ruang privat ber-AC yang nyaman untuk seluruh keluarga.
+          </p>
+        </div>
+
+        <!-- Minimalist CTA Buttons -->
+        <div class="pt-4 flex flex-wrap items-center gap-4" id="hero-cta-group">
+          <a href="#booking" class="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white hover:bg-brand-gold text-[#0C0C0E] hover:text-black font-bold text-sm shadow-xl hover:shadow-gold-glow active:scale-95 transition-all duration-300">
+            <span id="hero-primary-cta">Reservasi Sekarang</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+
+          <a href="#layanan" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full glass-pill-nav hover:bg-white/15 text-slate-200 font-medium text-sm transition">
+            <i data-lucide="sparkles" class="w-4 h-4 text-brand-gold"></i>
+            <span>Pilihan Perawatan</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Bottom: Subtle Scroll Down Indicator with Motion -->
+      <div class="pt-10 flex items-center justify-between text-xs text-slate-500">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+          <span>Buka Setiap Hari: 09:00 - 19:00 WIB</span>
+        </div>
+
+        <a href="#layanan" class="flex items-center gap-2 text-slate-400 hover:text-brand-gold transition duration-200 group">
+          <span class="hidden sm:inline">Gulir ke bawah untuk eksplor</span>
+          <div class="w-6 h-6 rounded-full glass-pill-nav flex items-center justify-center animate-scroll-bounce">
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-brand-gold"></i>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== SLIDE 2: TRUST BAR & LAYANAN (MOTION REVEAL) ==================== -->
+  <section id="layanan" class="relative py-24 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto border-t border-white/5 motion-slide">
+    
+    <!-- Trust Recognition Banner -->
+    <div class="mb-20 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="glass-card p-5 rounded-3xl motion-slide delay-100">
+        <p class="text-2xl font-extrabold text-white">4.9 / 5.0</p>
+        <p class="text-xs text-slate-400 mt-1">Google Maps Rating</p>
+      </div>
+      <div class="glass-card p-5 rounded-3xl motion-slide delay-200">
+        <p class="text-2xl font-extrabold text-brand-gold">15.000+</p>
+        <p class="text-xs text-slate-400 mt-1">Keluarga Puas</p>
+      </div>
+      <div class="glass-card p-5 rounded-3xl motion-slide delay-300">
+        <p class="text-2xl font-extrabold text-brand-green">100% Organik</p>
+        <p class="text-xs text-slate-400 mt-1">Minyak Herbal Alami</p>
+      </div>
+      <div class="glass-card p-5 rounded-3xl motion-slide delay-400">
+        <p class="text-2xl font-extrabold text-white">Privat &amp; Steril</p>
+        <p class="text-xs text-slate-400 mt-1">Standar Higienis Medis</p>
+      </div>
+    </div>
+
+    <!-- Section Title -->
+    <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-widest">
+        Menu Perawatan &amp; Tarif
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+        Pilihan Layanan untuk Kebugaran Keluarga
+      </h2>
+      <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
+        Kombinasi sentuhan terapis berlisensi dan minyak herbal pilihan untuk memulihkan vitalitas Anda.
+      </p>
+    </div>
+
+    <!-- Service Filter Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
+      <button class="service-tab-btn active px-5 py-2 rounded-full text-xs font-semibold bg-white text-black transition" data-filter="all">Semua Layanan</button>
+      <button class="service-tab-btn px-5 py-2 rounded-full text-xs font-semibold glass-pill-nav text-slate-300 hover:text-white transition" data-filter="favorit">Favorit</button>
+      <button class="service-tab-btn px-5 py-2 rounded-full text-xs font-semibold glass-pill-nav text-slate-300 hover:text-white transition" data-filter="keluarga">Paket Keluarga</button>
+      <button class="service-tab-btn px-5 py-2 rounded-full text-xs font-semibold glass-pill-nav text-slate-300 hover:text-white transition" data-filter="terapi">Terapi Khusus</button>
+    </div>
+
+    <!-- Services Grid (Minimalist Modern Cards) -->
+    <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Card 1: Traditional Body Massage -->
+      <div class="service-card group rounded-3xl bg-[#141418] border border-white/10 hover:border-brand-gold/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-gold-glow motion-slide delay-100" data-category="favorit">
+        <div>
+          <div class="relative rounded-2xl overflow-hidden mb-5 h-52">
+            <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&auto=format&fit=crop&q=80" alt="Pijat Tradisional Badan Aurelax" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-dark/80 backdrop-blur-md text-brand-gold text-xs font-semibold border border-brand-gold/30">
+              Best Seller
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-slate-200 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i> 90 / 120 Menit
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition">Traditional Body Massage</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Pijatan seluruh tubuh dengan teknik urut tradisional nusantara berpadu akupresur lembut untuk melancarkan aliran darah dan meredakan otot kaku.
+          </p>
+
+          <ul class="text-xs text-slate-300 space-y-2 mb-6">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Minyak urut zaitun &amp; jahe hangat
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Termasuk pijat kepala &amp; pundak
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-400 block">Mulai dari</span>
+            <span class="text-xl font-bold text-brand-gold">Rp 135.000</span>
+          </div>
+          <button onclick="pilihLayanan('Traditional Body Massage (90 Menit)')" class="px-4 py-2 rounded-full bg-white hover:bg-brand-gold text-black text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow">
+            <span>Pilih Layanan</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Aromatherapy Relaxing -->
+      <div class="service-card group rounded-3xl bg-[#141418] border border-white/10 hover:border-brand-gold/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-gold-glow motion-slide delay-200" data-category="favorit">
+        <div>
+          <div class="relative rounded-2xl overflow-hidden mb-5 h-52">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&auto=format&fit=crop&q=80" alt="Aromatherapy Relaxing Massage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-dark/80 backdrop-blur-md text-brand-green text-xs font-semibold border border-brand-green/30">
+              Paling Tenang
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-slate-200 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i> 60 / 90 Menit
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition">Aromatherapy Relaxing</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Terapi sentuhan relaksasi lembut dengan pilihan pure essential oil murni untuk mengatasi stres, insomnia, dan kelelahan mental.
+          </p>
+
+          <ul class="text-xs text-slate-300 space-y-2 mb-6">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> 3 Pilihan aroma esensial alami
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Meredakan stres &amp; insomnia
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-400 block">Mulai dari</span>
+            <span class="text-xl font-bold text-brand-gold">Rp 160.000</span>
+          </div>
+          <button onclick="pilihLayanan('Aromatherapy Relaxing (90 Menit)')" class="px-4 py-2 rounded-full bg-white hover:bg-brand-gold text-black text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow">
+            <span>Pilih Layanan</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Hot Stone Herbal Therapy -->
+      <div class="service-card group rounded-3xl bg-[#141418] border border-white/10 hover:border-brand-gold/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-gold-glow motion-slide delay-300" data-category="terapi">
+        <div>
+          <div class="relative rounded-2xl overflow-hidden mb-5 h-52">
+            <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&auto=format&fit=crop&q=80" alt="Hot Stone Herbal Therapy Aurelax" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-dark/80 backdrop-blur-md text-brand-gold text-xs font-semibold border border-brand-gold/30">
+              Premium Care
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-slate-200 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i> 90 Menit
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition">Hot Stone Herbal Therapy</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Kombinasi batu basalt vulkanik bersuhu hangat dan kompres rempah herbal untuk menembus lapisan otot terdalam, sangat efektif untuk pegal punggung menahun.
+          </p>
+
+          <ul class="text-xs text-slate-300 space-y-2 mb-6">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Relaksasi otot tingkat mendalam
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Detoksifikasi &amp; sirkulasi darah
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-400 block">Mulai dari</span>
+            <span class="text-xl font-bold text-brand-gold">Rp 210.000</span>
+          </div>
+          <button onclick="pilihLayanan('Hot Stone Herbal Therapy (90 Menit)')" class="px-4 py-2 rounded-full bg-white hover:bg-brand-gold text-black text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow">
+            <span>Pilih Layanan</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4: Reflexology & Foot Spa -->
+      <div class="service-card group rounded-3xl bg-[#141418] border border-white/10 hover:border-brand-gold/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-gold-glow motion-slide delay-100" data-category="terapi">
+        <div>
+          <div class="relative rounded-2xl overflow-hidden mb-5 h-52">
+            <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&auto=format&fit=crop&q=80" alt="Reflexology and Foot Spa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-slate-200 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i> 60 Menit
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition">Reflexology &amp; Foot Spa</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Stimulasi titik saraf telapak kaki yang terhubung ke organ tubuh, diawali rendaman kaki air hangat garam mineral Himalaya untuk kesegaran instan.
+          </p>
+
+          <ul class="text-xs text-slate-300 space-y-2 mb-6">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Foot soak garam laut organik
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Pijat betis, pundak &amp; leher
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-400 block">Mulai dari</span>
+            <span class="text-xl font-bold text-brand-gold">Rp 110.000</span>
+          </div>
+          <button onclick="pilihLayanan('Reflexology & Foot Spa (60 Menit)')" class="px-4 py-2 rounded-full bg-white hover:bg-brand-gold text-black text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow">
+            <span>Pilih Layanan</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 5: Happy Family Harmony Suite -->
+      <div class="service-card group rounded-3xl bg-[#141418] border-2 border-brand-gold/40 hover:border-brand-gold p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-gold-glow motion-slide delay-200" data-category="keluarga">
+        <div>
+          <div class="relative rounded-2xl overflow-hidden mb-5 h-52">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&auto=format&fit=crop&q=80" alt="Paket Keluarga Aurelax Family Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-gold text-black text-xs font-bold shadow-md">
+              Special Family Room
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-slate-200 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i> 120 Menit
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition">Happy Family Harmony Suite</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Paket relaksasi komplit di ruang privat luas khusus keluarga (Ayah, Ibu &amp; 1 Anak/Remaja). Terapis terpisah pria &amp; wanita yang ramah serta welcome herbal tea.
+          </p>
+
+          <ul class="text-xs text-slate-300 space-y-2 mb-6">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> 1 Ruang VIP Family Khusus
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Welcome herbal tea &amp; diffuser
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-400 block">Paket 3 Orang</span>
+            <span class="text-xl font-bold text-brand-gold">Rp 480.000</span>
+          </div>
+          <button onclick="pilihLayanan('Happy Family Harmony Suite (3 Orang)')" class="px-4 py-2 rounded-full bg-white hover:bg-brand-gold text-black text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow">
+            <span>Pilih Paket</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 6: Mom & Kids Gentle Care -->
+      <div class="service-card group rounded-3xl bg-[#141418] border border-white/10 hover:border-brand-gold/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-gold-glow motion-slide delay-300" data-category="keluarga">
+        <div>
+          <div class="relative rounded-2xl overflow-hidden mb-5 h-52">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&auto=format&fit=crop&q=80" alt="Mom and Kids Gentle Care Massage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-slate-200 text-xs font-medium flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i> 60 / 90 Menit
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-gold transition">Mom &amp; Kids Gentle Care</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Pijatan lembut dirancang khusus bagi ibu hamil/pasca melahirkan serta stimulasi motorik dan relaksasi anak dengan terapis wanita bersertifikasi.
+          </p>
+
+          <ul class="text-xs text-slate-300 space-y-2 mb-6">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Virgin coconut oil aman kulit anak
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-brand-green"></i> Posisi nyaman &amp; ergonomis
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-400 block">Mulai dari</span>
+            <span class="text-xl font-bold text-brand-gold">Rp 175.000</span>
+          </div>
+          <button onclick="pilihLayanan('Mom & Kids Gentle Care (60 Menit)')" class="px-4 py-2 rounded-full bg-white hover:bg-brand-gold text-black text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow">
+            <span>Pilih Layanan</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== SLIDE 3: TENTANG KAMI & SUASANA (MOTION REVEAL) ==================== -->
+  <section id="keunggulan" class="relative py-24 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto border-t border-white/5 motion-slide">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-5 space-y-4 motion-slide-left">
+        <span class="text-xs font-bold text-brand-gold uppercase tracking-widest block">
+          Filosofi &amp; Standar Aurelax
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          Menghadirkan Ketenangan Sejati untuk Seluruh Keluarga
+        </h2>
+      </div>
+
+      <div class="lg:col-span-7 space-y-5 motion-slide-right">
+        <p class="text-base sm:text-lg text-slate-200 font-medium leading-relaxed">
+          Di Aurelax Family Massage, kami mendedikasikan setiap detail ruangan agar Anda dan keluarga merasa seperti berada di sanctuary pribadi yang damai.
+        </p>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Kami memadukan keramahan terapis berlisensi, standar kebersihan medis dengan sprei dan handuk steril satu kali pakai, serta ruangan ber-AC privat bebas rokok. Baik ayah, ibu, anak, maupun kakek-nenek mendapatkan perlakuan lembut dan penuh rasa hormat.
+        </p>
+        <div class="pt-2">
+          <a href="#booking" class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white hover:bg-brand-gold text-black font-bold text-xs shadow-md transition">
+            <span>Jadwalkan Kunjungan Anda</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3 Aesthetic Atmospheric Photos -->
+    <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="group relative rounded-3xl overflow-hidden border border-white/10 h-72 motion-slide delay-100">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=700&auto=format&fit=crop&q=80" alt="Ruang Perawatan Privat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end p-6">
+          <span class="text-xs text-brand-gold font-semibold uppercase">Atmosfer Damai</span>
+          <h4 class="text-lg font-bold text-white">Ruang Privat Keluarga Ber-AC</h4>
+        </div>
+      </div>
+
+      <div class="group relative rounded-3xl overflow-hidden border border-white/10 h-72 motion-slide delay-200">
+        <img src="https://images.unsplash.com/photo-1608248597359-5407fcf86c8a?w=700&auto=format&fit=crop&q=80" alt="Minyak Aromaterapi Alami" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end p-6">
+          <span class="text-xs text-brand-green font-semibold uppercase">100% Organik</span>
+          <h4 class="text-lg font-bold text-white">Minyak Esensial Alami</h4>
+        </div>
+      </div>
+
+      <div class="group relative rounded-3xl overflow-hidden border border-white/10 h-72 motion-slide delay-300">
+        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=700&auto=format&fit=crop&q=80" alt="Terapis Tersertifikasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end p-6">
+          <span class="text-xs text-brand-gold font-semibold uppercase">Tersertifikasi BNSP</span>
+          <h4 class="text-lg font-bold text-white">Terapis Pria &amp; Wanita Ahli</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 4: INTERACTIVE BOOKING FORM (MOTION REVEAL) ==================== -->
+  <section id="booking" class="relative py-24 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto border-t border-white/5 motion-slide">
+    
+    <div class="relative z-10 max-w-4xl mx-auto">
+      
+      <div class="text-center mb-10 space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-green/15 border border-brand-green/30 text-brand-green text-xs font-semibold uppercase tracking-widest">
+          Reservasi Online Cepat
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Pesan Jadwal Pijat Anda
+        </h2>
+        <p class="text-slate-400 text-sm max-w-lg mx-auto">
+          Pilih waktu yang cocok. Data otomatis terhubung ke sistem jadwal dan dapat dikonfirmasi instan ke WhatsApp.
+        </p>
+      </div>
+
+      <!-- Main Booking Form Card -->
+      <div class="glass-card-gold rounded-[2.5rem] p-6 sm:p-10 shadow-2xl">
+        <form id="booking-form" class="space-y-6">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="nama" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Nama Lengkap <span class="text-brand-gold">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="user" class="w-4 h-4"></i>
+                </span>
+                <input type="text" id="nama" name="nama" required placeholder="Contoh: Budi Santoso" class="w-full pl-10 pr-4 py-3 bg-[#111115] border border-white/10 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold text-sm transition">
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label for="whatsapp" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Nomor WhatsApp <span class="text-brand-gold">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="phone" class="w-4 h-4"></i>
+                </span>
+                <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Contoh: 081234567890" class="w-full pl-10 pr-4 py-3 bg-[#111115] border border-white/10 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold text-sm transition">
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="layanan-select" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Pilih Jenis Pijat <span class="text-brand-gold">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </span>
+                <select id="layanan-select" name="layanan" required class="w-full pl-10 pr-8 py-3 bg-[#111115] border border-white/10 rounded-2xl text-white focus:outline-none focus:border-brand-gold text-sm transition appearance-none">
+                  <option value="" disabled selected>Pilih perawatan...</option>
+                  <option value="Traditional Body Massage (90 Menit)">Traditional Body Massage (90 Menit) - Rp 135.000</option>
+                  <option value="Aromatherapy Relaxing (90 Menit)">Aromatherapy Relaxing (90 Menit) - Rp 160.000</option>
+                  <option value="Hot Stone Herbal Therapy (90 Menit)">Hot Stone Herbal Therapy (90 Menit) - Rp 210.000</option>
+                  <option value="Reflexology & Foot Spa (60 Menit)">Reflexology &amp; Foot Spa (60 Menit) - Rp 110.000</option>
+                  <option value="Happy Family Harmony Suite (3 Orang)">Happy Family Harmony Suite (3 Orang) - Rp 480.000</option>
+                  <option value="Mom & Kids Gentle Care (60 Menit)">Mom &amp; Kids Gentle Care (60 Menit) - Rp 175.000</option>
+                </select>
+                <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label for="jumlah_tamu" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Jumlah Orang <span class="text-brand-gold">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                </span>
+                <select id="jumlah_tamu" name="jumlah_tamu" required class="w-full pl-10 pr-8 py-3 bg-[#111115] border border-white/10 rounded-2xl text-white focus:outline-none focus:border-brand-gold text-sm transition appearance-none">
+                  <option value="1 Orang">1 Orang (Single)</option>
+                  <option value="2 Orang (Pasangan/Couple)">2 Orang (Couple / Pasutri)</option>
+                  <option value="3 Orang (Keluarga Kecil)">3 Orang (Keluarga Kecil)</option>
+                  <option value="4 Orang atau Lebih (Rombongan)">4+ Orang (Rombongan)</option>
+                </select>
+                <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Kolom Kiri: Pilihan Tanggal (Kalender Bawaan Browser) -->
+            <div class="space-y-2">
+              <label for="tanggal" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Pilih Tanggal Reservasi <span class="text-brand-gold">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="calendar" class="w-4 h-4"></i>
+                </span>
+                <input type="date" id="tanggal" name="tanggal" required class="w-full pl-10 pr-4 py-3 bg-[#111115] border border-white/10 rounded-2xl text-white focus:outline-none focus:border-brand-gold text-sm transition cursor-pointer">
+              </div>
+            </div>
+
+            <!-- Kolom Kanan: Pilihan Jam Kedatangan -->
+            <div class="space-y-2">
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Pilih Jam Kedatangan <span class="text-brand-gold">*</span>
+              </label>
+              <input type="hidden" id="jam_terpilih" name="jam" required value="">
+              
+              <div class="grid grid-cols-4 gap-2" id="time-slots-container"></div>
+              <p id="slot-status-msg" class="hidden text-xs text-amber-400 mt-1"></p>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="catatan" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              Preferensi Terapis / Catatan Khusus (Opsional)
+            </label>
+            <textarea id="catatan" name="catatan" rows="2" placeholder="Contoh: Mohon terapis wanita untuk istri. Fokus pada bagian punggung dan leher." class="w-full px-4 py-3 bg-[#111115] border border-white/10 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold text-sm transition"></textarea>
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
+            <button type="submit" id="submit-btn" class="w-full sm:w-auto flex-1 group inline-flex items-center justify-center gap-3 py-3.5 px-8 rounded-full bg-white hover:bg-brand-gold text-black font-bold text-sm shadow-xl active:scale-95 transition-all duration-300">
+              <span id="submit-spinner" class="hidden">
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
+              <span id="submit-text">Konfirmasi Reservasi Saya</span>
+              <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            </button>
+
+            <button type="button" id="wa-direct-btn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-[#183920] hover:bg-brand-green hover:text-black text-brand-green border border-brand-green/40 font-semibold text-sm transition">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Kirim via WhatsApp</span>
+            </button>
+          </div>
+
+          <p class="text-[11px] text-center text-slate-500">
+            🔒 Privasi terjamin. CS Aurelax akan segera menghubungi via WhatsApp untuk konfirmasi ketersediaan kamar.
+          </p>
+        </form>
+
+        <div id="form-alert" class="hidden mt-6 p-4 rounded-2xl border text-sm transition-all duration-300"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== SLIDE 5: ULASAN & LOKASI (MOTION REVEAL) ==================== -->
+  <section id="ulasan" class="relative py-24 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto border-t border-white/5 motion-slide">
+    
+    <div class="text-center max-w-2xl mx-auto mb-14 space-y-2">
+      <span class="text-xs font-semibold text-brand-gold uppercase tracking-widest">Testimoni Tamu</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Apa Kata Keluarga yang Pernah Berkunjung?</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      <div class="glass-card p-6 rounded-3xl space-y-4 motion-slide delay-100">
+        <div class="flex text-amber-400 text-sm">★★★★★</div>
+        <p class="text-slate-300 text-sm leading-relaxed italic">
+          "Tempatnya bersih banget, wangi aromaterapinya bikin langsung rileks pas masuk. Saya dan suami ambil Family Suite, terapisnya sangat sopan dan pijatannya pas!"
+        </p>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+          <div class="w-9 h-9 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-xs">DS</div>
+          <div>
+            <p class="text-sm font-bold text-white">Dewi Sartika</p>
+            <p class="text-[11px] text-slate-400">Ibu Rumah Tangga</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl space-y-4 motion-slide delay-200">
+        <div class="flex text-amber-400 text-sm">★★★★★</div>
+        <p class="text-slate-300 text-sm leading-relaxed italic">
+          "Habis lelah kerja di depan laptop seharian, Hot Stone Herbal Therapy di Aurelax juara banget. Pegal pundak langsung rontok. Standar higienisnya beneran top."
+        </p>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+          <div class="w-9 h-9 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center font-bold text-xs">AP</div>
+          <div>
+            <p class="text-sm font-bold text-white">Aditya Pratama</p>
+            <p class="text-[11px] text-slate-400">Software Engineer</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl space-y-4 motion-slide delay-300">
+        <div class="flex text-amber-400 text-sm">★★★★★</div>
+        <p class="text-slate-300 text-sm leading-relaxed italic">
+          "Pilihan terbaik untuk pijat keluarga. Sering bawa orang tua ke sini, terapisnya telaten dan bisa menyesuaikan tekanan. Ruangannya privat dan sangat tenang."
+        </p>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+          <div class="w-9 h-9 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-xs">RH</div>
+          <div>
+            <p class="text-sm font-bold text-white">Rina Haryanto</p>
+            <p class="text-[11px] text-slate-400">Wirausaha</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lokasi & Kontak Grid -->
+    <div id="lokasi" class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center pt-10 border-t border-white/5">
+      <div class="space-y-6 motion-slide-left">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase">
+          Kunjungi Kami
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          Lokasi Nyaman &amp; Parkir Luas
+        </h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-2xl glass-pill-nav flex items-center justify-center text-brand-gold shrink-0">
+              <i data-lucide="map-pin" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-white">Alamat Sanctuary</p>
+              <p class="text-xs text-slate-400">Jl. Melati Kencana No. 88, Kawasan Harmoni Sejahtera, Jakarta</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-2xl glass-pill-nav flex items-center justify-center text-brand-green shrink-0">
+              <i data-lucide="clock" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-white">Jam Operasional</p>
+              <p class="text-xs text-slate-400">Senin - Minggu: 09:00 - 19:00 WIB</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-2xl glass-pill-nav flex items-center justify-center text-brand-gold shrink-0">
+              <i data-lucide="phone-call" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-white">Customer Support WhatsApp</p>
+              <p class="text-xs text-slate-400">+62 899-7906-767</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl overflow-hidden border border-white/10 bg-[#141418] p-3 shadow-2xl motion-slide-right">
+        <div class="w-full h-72 rounded-2xl overflow-hidden relative">
+          <iframe 
+            title="Lokasi Aurelax Family Massage"
+            class="w-full h-full border-0 filter grayscale invert contrast-125 opacity-80 hover:opacity-100 transition-opacity duration-300" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.2642232945!2d106.75620925!3d-6.2297465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-[#08080A] border-t border-white/5 py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <div class="flex items-center gap-3">
+        <span class="font-serif text-lg font-bold text-brand-gold">AURELAX</span>
+        <span>&copy; 2026 Aurelax Family Massage. All Rights Reserved.</span>
+      </div>
+      <p class="text-[11px]">Bebas asusila • 100% Layanan Kesehatan &amp; Kebugaran Keluarga</p>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING WHATSAPP PILL ==================== -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <a href="https://wa.me/628997906767?text=Halo%20Aurelax%20Family%20Massage%2C%20saya%20ingin%20tanya%20jadwal%20layanan%20pijat" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 px-4 py-3 rounded-full bg-[#183920] border border-brand-green/50 text-white shadow-green-glow hover:bg-brand-green hover:text-black transition-all duration-300">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-green"></span>
+      </span>
+      <i data-lucide="message-circle" class="w-4 h-4 text-brand-green group-hover:text-black"></i>
+      <span class="text-xs font-bold text-slate-100 group-hover:text-black transition">Chat CS</span>
+    </a>
+  </div>
+
+  <!-- ==================== SCRIPTS & MOTION LOGIC ==================== -->
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // 3. Datepicker Bawaan Browser (Chrome Native Calendar)
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    let selectedDate = today;
+
+    const dateInput = document.getElementById('tanggal');
+    if (dateInput) {
+      dateInput.min = today;
+      dateInput.value = today;
+      // Buka popup kalender native browser saat input diklik
+      dateInput.addEventListener('click', () => {
+        try {
+          if (typeof dateInput.showPicker === 'function') {
+            dateInput.showPicker();
+          }
+        } catch (e) {}
+      });
+      dateInput.addEventListener('change', () => {
+        selectedDate = dateInput.value;
+        loadSlots();
+      });
+    }
+
+    // 4. Time Slot Definition (09:00 - 19:00 tiap 30 menit)
+    const TIME_SLOTS = [
+      "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+      "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+      "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+      "18:00", "18:30", "19:00"
+    ];
+
+    const timeSlotsContainer = document.getElementById('time-slots-container');
+    const hiddenJamInput = document.getElementById('jam_terpilih');
+    const slotStatusMsg = document.getElementById('slot-status-msg');
+    const jumlahTamuSelect = document.getElementById('jumlah_tamu');
+
+    function isTimePassedToday(slotTime, selectedDate) {
+      if (selectedDate !== today) return false;
+      const wibString = new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+      const wibDate = new Date(wibString);
+      const currentWibMinutes = wibDate.getHours() * 60 + wibDate.getMinutes();
+      const [h, m] = slotTime.split(':').map(Number);
+      return (h * 60 + m) <= currentWibMinutes;
+    }
+
+    function selectSlot(btn, time) {
+      const allButtons = timeSlotsContainer.querySelectorAll('.time-slot-btn');
+      allButtons.forEach(b => {
+        if (!b.disabled) {
+          b.className = 'time-slot-btn py-2 text-xs font-semibold rounded-xl bg-[#111115] border border-white/10 text-slate-300 hover:border-brand-gold transition';
+        }
+      });
+      btn.className = 'time-slot-btn py-2 text-xs font-semibold rounded-xl bg-white text-black transition';
+      hiddenJamInput.value = time;
+    }
+
+    async function loadSlots() {
+      if (!timeSlotsContainer || !dateInput) return;
+      const tanggal = dateInput.value;
+      const jumlahTamuVal = jumlahTamuSelect ? jumlahTamuSelect.value : "1";
+      const jumlahOrang = parseInt(jumlahTamuVal, 10) || 1;
+
+      timeSlotsContainer.innerHTML = `<div class="col-span-4 text-center py-3 text-xs text-slate-400">Memuat jam tersedia...</div>`;
+      if (slotStatusMsg) slotStatusMsg.classList.add('hidden');
+      hiddenJamInput.value = "";
+
+      let slotData = {};
+      try {
+        const res = await fetch(`${GOOGLE_SCRIPT_WEBAPP_URL}?action=slots&tanggal=${encodeURIComponent(tanggal)}`);
+        const data = await res.json();
+        if (data && typeof data === 'object') {
+          if (data.slots && typeof data.slots === 'object' && !Array.isArray(data.slots)) {
+            slotData = data.slots;
+          } else if (Array.isArray(data.slots)) {
+            data.slots.forEach(s => { slotData[s.jam || s.time] = (s.sisa !== undefined ? s.sisa : s.available); });
+          } else if (Array.isArray(data)) {
+            data.forEach(s => { slotData[s.jam || s.time] = (s.sisa !== undefined ? s.sisa : s.available); });
+          } else {
+            slotData = data;
+          }
+        }
+      } catch (err) {
+        console.warn("Gagal memuat slot online, menggunakan cek jam lokal:", err);
+      }
+
+      timeSlotsContainer.innerHTML = "";
+      let firstAvailableBtn = null;
+      let firstAvailableTime = null;
+
+      TIME_SLOTS.forEach(time => {
+        const isPassed = isTimePassedToday(time, tanggal);
+        const capacity = (slotData && slotData[time] !== undefined) ? Number(slotData[time]) : 99;
+        const isFull = capacity < jumlahOrang;
+        const isDisabled = isPassed || isFull;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('data-time', time);
+        btn.textContent = time;
+
+        if (isDisabled) {
+          btn.disabled = true;
+          btn.className = 'time-slot-btn py-2 text-xs font-semibold rounded-xl bg-white/5 border border-white/5 text-slate-600 cursor-not-allowed transition';
+        } else {
+          btn.className = 'time-slot-btn py-2 text-xs font-semibold rounded-xl bg-[#111115] border border-white/10 text-slate-300 hover:border-brand-gold transition';
+          if (!firstAvailableBtn) {
+            firstAvailableBtn = btn;
+            firstAvailableTime = time;
+          }
+          btn.addEventListener('click', () => selectSlot(btn, time));
+        }
+
+        timeSlotsContainer.appendChild(btn);
+      });
+
+      if (firstAvailableBtn && firstAvailableTime) {
+        selectSlot(firstAvailableBtn, firstAvailableTime);
+        if (submitBtn) submitBtn.disabled = false;
+        if (slotStatusMsg) slotStatusMsg.classList.add('hidden');
+      } else {
+        hiddenJamInput.value = "";
+        if (submitBtn) submitBtn.disabled = true;
+        if (slotStatusMsg) {
+          slotStatusMsg.textContent = "Semua jam di tanggal ini penuh, silakan pilih tanggal lain";
+          slotStatusMsg.classList.remove('hidden');
+        }
+      }
+    }
+
+    // 5. Service Filter
+    const tabBtns = document.querySelectorAll('.service-tab-btn');
+    const serviceCards = document.querySelectorAll('.service-card');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => {
+          b.classList.remove('bg-white', 'text-black');
+          b.classList.add('glass-pill-nav', 'text-slate-300');
+        });
+        btn.classList.remove('glass-pill-nav', 'text-slate-300');
+        btn.classList.add('bg-white', 'text-black');
+
+        const filter = btn.getAttribute('data-filter');
+        serviceCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Auto-select service & scroll to booking form
+    function pilihLayanan(namaLayanan) {
+      const selectElem = document.getElementById('layanan-select');
+      if (selectElem) selectElem.value = namaLayanan;
+      const bookingSection = document.getElementById('booking');
+      if (bookingSection) bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 6. SCROLL MOTION ANIMATION PER SLIDE KE BAWAH (Intersection Observer)
+    // =========================================================================
+    const motionElements = document.querySelectorAll('.motion-slide, .motion-slide-left, .motion-slide-right');
+    const observerOptions = {
+      root: null,
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    };
+
+    const slideObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, observerOptions);
+
+    motionElements.forEach(el => slideObserver.observe(el));
+
+    // Update active slide dot indicator
+    const sections = document.querySelectorAll('section[id]');
+    const slideDots = document.querySelectorAll('.slide-dot');
+
+    window.addEventListener('scroll', () => {
+      let currentSection = "";
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 200;
+        if (window.scrollY >= top) {
+          currentSection = sec.getAttribute('id');
+        }
+      });
+
+      slideDots.forEach(dot => {
+        dot.classList.remove('bg-brand-gold', 'w-3.5', 'h-3.5');
+        dot.classList.add('bg-white/20', 'w-2.5', 'h-2.5');
+        if (dot.getAttribute('href') === `#${currentSection}`) {
+          dot.classList.remove('bg-white/20', 'w-2.5', 'h-2.5');
+          dot.classList.add('bg-brand-gold', 'w-3.5', 'h-3.5');
+        }
+      });
+    }, { passive: true });
+
+    // Event listener untuk reload slot saat jumlah orang berubah
+    if (jumlahTamuSelect) jumlahTamuSelect.addEventListener('change', loadSlots);
+    loadSlots();
+
+    // =========================================================================
+    // 8. FORM SUBMISSION & WHATSAPP LOGIC
+    // =========================================================================
+
+    // ⚙️ KONFIGURASI:
+    const GOOGLE_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzTzCTUHxe9ZJyx-1QzwoMqni-uUwoSnNPhS6YbNDLxL0fi7p2ZaGrPN2nUtdvVD_xh/exec";
+    const OFFICIAL_WHATSAPP_NUMBER = "628997906767";
+
+    const bookingForm  = document.getElementById('booking-form');
+    const submitBtn    = document.getElementById('submit-btn');
+    const submitText   = document.getElementById('submit-text');
+    const submitSpinner= document.getElementById('submit-spinner');
+    const formAlert    = document.getElementById('form-alert');
+    const waDirectBtn  = document.getElementById('wa-direct-btn');
+
+    // Sanitasi teks agar aman dari XSS
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Format pesan WhatsApp ringkas & rapi
+    function generateWAMessage(data, bookingId) {
+      const bid = bookingId ? `%0A🔖 *ID Reservasi:* ${encodeURIComponent(bookingId)}` : "";
+      return `*🌿 RESERVASI AURELAX FAMILY MASSAGE*%0A` +
+        `━━━━━━━━━━━━━━━━━━━━━━%0A` +
+        `👤 *Nama:* ${encodeURIComponent(data.nama || '-')}%0A` +
+        `📱 *WhatsApp:* ${encodeURIComponent(data.whatsapp || '-')}%0A` +
+        `💆 *Layanan:* ${encodeURIComponent(data.layanan || '-')}%0A` +
+        `👥 *Jumlah Tamu:* ${encodeURIComponent(data.jumlah_tamu || '-')}%0A` +
+        `📅 *Tanggal Reservasi:* ${encodeURIComponent(data.tanggal || '-')}%0A` +
+        `⏰ *Jam Kedatangan:* ${encodeURIComponent(data.jam || '-')}%0A` +
+        (data.catatan ? `📝 *Catatan:* ${encodeURIComponent(data.catatan)}%0A` : "") +
+        bid +
+        `%0A━━━━━━━━━━━━━━━━━━━━━━%0A` +
+        `Mohon konfirmasi ketersediaan ruangan. Terima kasih! 🙏`;
+    }
+
+    // Tombol kirim langsung ke WhatsApp
+    waDirectBtn.addEventListener('click', () => {
+      const data = {
+        nama       : document.getElementById('nama').value,
+        whatsapp   : document.getElementById('whatsapp').value,
+        layanan    : document.getElementById('layanan-select').value || 'Konsultasi',
+        jumlah_tamu: document.getElementById('jumlah_tamu').value,
+        tanggal    : document.getElementById('tanggal').value,
+        jam        : document.getElementById('jam_terpilih').value,
+        catatan    : document.getElementById('catatan').value,
+      };
+      window.open(`https://wa.me/${OFFICIAL_WHATSAPP_NUMBER}?text=${generateWAMessage(data)}`, '_blank');
+    });
+
+    // Submit form → Google Sheets via Apps Script
+    bookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitSpinner.classList.remove('hidden');
+      submitText.textContent = "Mengirim data...";
+      formAlert.classList.add('hidden');
+
+      const formData = new FormData(bookingForm);
+      const dataObj  = Object.fromEntries(formData.entries());
+
+      // Validasi sederhana sisi klien
+      if (!dataObj.nama || !dataObj.nama.trim()) {
+        return _showAlert('error', 'Mohon isi Nama Lengkap terlebih dahulu.', null, null);
+      }
+      if (!dataObj.whatsapp || !dataObj.whatsapp.trim()) {
+        return _showAlert('error', 'Mohon isi Nomor WhatsApp terlebih dahulu.', null, null);
+      }
+      if (!dataObj.layanan || dataObj.layanan === "") {
+        return _showAlert('error', 'Mohon pilih Jenis Layanan terlebih dahulu.', null, null);
+      }
+      if (!dataObj.jam || dataObj.jam === "") {
+        return _showAlert('error', 'Mohon pilih jam kedatangan yang tersedia.', null, null);
+      }
+
+      try {
+        submitText.textContent = "Menyimpan ke Google Sheets...";
+
+        const response = await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+          method : 'POST',
+          body   : JSON.stringify(dataObj)
+        });
+
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          _showAlert('success', null, dataObj, res.bookingId);
+          bookingForm.reset();
+          selectedDate = today;
+          if (dateInput) {
+            dateInput.min = today;
+            dateInput.value = today;
+          }
+          loadSlots();
+        } else if (res.status === 'full') {
+          _showAlert('error', res.message || 'Slot jam yang dipilih sudah penuh, silakan pilih jam lain.', null, null);
+          loadSlots();
+        } else {
+          _showAlert('error', res.message || 'Terjadi kesalahan pada server booking.', null, null);
+        }
+
+      } catch (err) {
+        console.error('Error pengiriman booking:', err);
+        // Error jaringan — tawarkan fallback WhatsApp
+        _showAlert('warning', null, dataObj, null);
+      } finally {
+        submitBtn.disabled = false;
+        submitSpinner.classList.add('hidden');
+        submitText.textContent = "Konfirmasi Reservasi Saya";
+        lucide.createIcons();
+      }
+    });
+
+    // Helper tampilkan alert hasil form
+    function _showAlert(type, msg, data, bookingId) {
+      formAlert.classList.remove('hidden');
+
+      if (type === 'success') {
+        const safeNama = escapeHtml(data.nama);
+        const safeLayanan = escapeHtml(data.layanan);
+        const safeTanggal = escapeHtml(data.tanggal);
+        const safeJam = escapeHtml(data.jam);
+        const safeId = escapeHtml(bookingId);
+
+        formAlert.className = "mt-6 p-5 rounded-2xl bg-[#132214] border border-brand-green/40 text-slate-200";
+        formAlert.innerHTML = `
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center shrink-0 text-lg font-bold mt-0.5">✓</div>
+            <div class="flex-1">
+              <p class="font-bold text-white text-base mb-1">Reservasi Berhasil Diajukan! 🎉</p>
+              ${safeId ? `<p class="text-xs font-mono text-brand-gold bg-brand-gold/10 inline-block px-3 py-1 rounded-full mb-2">ID Booking: ${safeId}</p>` : ""}
+              <p class="text-xs text-slate-300 mb-3">
+                Terima kasih, <strong>${safeNama}</strong>! Data reservasi <strong>${safeLayanan}</strong>
+                untuk <strong>${safeTanggal}</strong> jam <strong>${safeJam}</strong> telah tercatat
+                ke sistem kami.
+              </p>
+              <p class="text-xs text-slate-400 mb-4">Tim CS kami akan menghubungi Anda via WhatsApp dalam waktu singkat untuk konfirmasi ruangan dan terapis.</p>
+              <a href="https://wa.me/${OFFICIAL_WHATSAPP_NUMBER}?text=${generateWAMessage(data, bookingId)}" target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-green text-black font-bold text-xs hover:brightness-110 transition">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                <span>Kirim Konfirmasi ke WhatsApp CS</span>
+              </a>
+            </div>
+          </div>
+        `;
+      } else if (type === 'warning') {
+        formAlert.className = "mt-6 p-5 rounded-2xl bg-[#231E10] border border-brand-gold/40 text-slate-200";
+        formAlert.innerHTML = `
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center shrink-0 text-lg font-bold mt-0.5">!</div>
+            <div>
+              <p class="font-bold text-brand-gold text-base mb-1">Koneksi Terputus</p>
+              <p class="text-xs text-slate-300 mb-3">
+                Gagal menghubungi server booking secara online. Jangan khawatir — Anda tetap dapat melakukan reservasi langsung melalui WhatsApp kami.
+              </p>
+              <a href="https://wa.me/${OFFICIAL_WHATSAPP_NUMBER}?text=${generateWAMessage(data || {})}" target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-gold text-black font-bold text-xs hover:brightness-110 transition">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                <span>Lanjutkan Reservasi via WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        `;
+      } else {
+        const safeMsg = escapeHtml(msg || 'Terjadi kesalahan. Silakan coba lagi.');
+        formAlert.className = "mt-6 p-4 rounded-2xl bg-[#2A1414] border border-red-500/40 text-red-200";
+        formAlert.innerHTML = `<p class="text-sm font-semibold">⚠ ${safeMsg}</p>`;
+        submitBtn.disabled = false;
+        submitSpinner.classList.add('hidden');
+        submitText.textContent = "Konfirmasi Reservasi Saya";
+      }
+    }
+  </script>
+</body>
+</html>
